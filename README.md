@@ -14,9 +14,43 @@ The primary function of the remittance service is to execute cross-currency fina
 
 ---
 
+## API Documentation
+
+* [Local](http://localhost:8080/swagger-ui/index.html)
+
+---
+
+## Run tests
+
+```bash
+mvn test
+```
+with verification
+
+```bash
+mvn test verify
+```
+---
+
 # Running the Project Locally
 
+## Run without Kubernetes
+
+
 ## Prerequisites
+
+* Java 21+
+* Maven
+* Docker
+---
+
+```bash
+cd docker && docker compose up -d && cd .. && mvn spring-boot:run -Dspring-boot.run.profiles=api
+```
+---
+
+
+## Run with kubernetes 
 
 Make sure you have installed:
 
@@ -25,8 +59,6 @@ Make sure you have installed:
 * Docker
 * Rancher Desktop (or another local Kubernetes environment)
 * kubectl
-
----
 
 # 1. Clone the Repository
 
@@ -582,28 +614,6 @@ kubectl get pods -w
 
 ---
 
-# Run without Kubernetes
-
-## API Documentation
-
-* [Local](http://localhost:8080/swagger-ui/index.html)
-
-
-## Running the application
-
-```bash
-cd docker && docker compose up -d && cd .. && mvn spring-boot:run -Dspring-boot.run.profiles=api
-```
-## Run tests
-
-```bash
-mvn test
-```
-with verification
-
-```bash
-mvn test verify
-```
 # Project Architecture
 
 The application is deployed using separated workloads:
