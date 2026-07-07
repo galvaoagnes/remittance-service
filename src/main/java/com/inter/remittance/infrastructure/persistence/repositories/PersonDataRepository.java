@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Repository
@@ -34,15 +33,6 @@ public class PersonDataRepository implements PersonRepository {
     @Override
     public boolean existsByDocumentValue(String document) {
         return repository.existsByDocumentValue(document);
-    }
-
-    @Override
-    public Set<Person> findAll() {
-        return repository
-                .findAll()
-                .stream()
-                .map(PersonMapper::toDomain)
-                .collect(java.util.stream.Collectors.toSet());
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.inter.remittance.application.cronjob;
 import com.inter.remittance.domain.entities.DailyTransactionLimit;
 import com.inter.remittance.domain.entities.PageResult;
 import com.inter.remittance.domain.entities.Person;
+import com.inter.remittance.domain.repositories.DailyTransactionLimitRepository;
 import com.inter.remittance.domain.repositories.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +16,15 @@ import org.springframework.stereotype.Component;
 public class ReestablishPersonDailyTransactionLimit {
 
     private final PersonRepository personRepository;
+    private final DailyTransactionLimitRepository dailyTransactionLimitRepository;
 
 
-    public ReestablishPersonDailyTransactionLimit(PersonRepository personRepository) {
+    public ReestablishPersonDailyTransactionLimit(
+            PersonRepository personRepository,
+            DailyTransactionLimitRepository dailyTransactionLimitRepository
+            ) {
         this.personRepository = personRepository;
+        this.dailyTransactionLimitRepository = dailyTransactionLimitRepository;
     }
 
     private static final Logger log = LoggerFactory.getLogger(ReestablishPersonDailyTransactionLimit.class);
@@ -36,7 +42,6 @@ public class ReestablishPersonDailyTransactionLimit {
             persons.content()
                     .parallelStream()
                     .forEach(this::resetLimit);
-
             page++;
 
         } while (page < persons.totalPages());
@@ -54,7 +59,7 @@ public class ReestablishPersonDailyTransactionLimit {
             DailyTransactionLimit.setInitialDailyTransactionLimit(
                     person.dailyTransactionLimits(),
                     person.document().type()
-            );
+            ).forEach(dailyTransactionLimitRepository::update);
 
         } catch (Exception e) {
 
