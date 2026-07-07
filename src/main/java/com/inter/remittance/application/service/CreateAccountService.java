@@ -38,10 +38,6 @@ public class CreateAccountService {
             throw new BusinessException(ErrorCatalog.DOCUMENT_ALREADY_EXISTS);
         }
 
-        log.info("Creating new account for person with document {}",
-                command.documentNumber()
-        );
-
         Person person = createNewPerson(
                command.name(),
                command.lastName(),
@@ -64,8 +60,8 @@ public class CreateAccountService {
                 )
         );
 
-        log.info("Account created successfully for person with document {}",
-                command.documentNumber()
+        log.info("Account id {} created successfully ",
+                persistedAccount.id()
         );
 
        return persistedAccount;
