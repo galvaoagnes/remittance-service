@@ -1,0 +1,83 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+title Remittance Service - Database ERD
+
+entity "persons" as persons {
+  *id : UUID
+
+  --
+  person_type : VARCHAR(20)
+  document_value : VARCHAR(20)
+  name : VARCHAR(100)
+  last_name : VARCHAR(100)
+  email : VARCHAR(150)
+  password : VARCHAR(255)
+}
+
+entity "daily_transaction_limit" as daily_transaction_limit {
+  *id : UUID
+  --
+  person_id : UUID <<FK>>
+  currency : VARCHAR(3)
+  amount : DECIMAL(19,2)
+}
+
+entity "accounts" as accounts {
+  *id : UUID
+  --
+  person_id : UUID <<FK, UNIQUE>>
+  is_active : BOOLEAN
+}
+
+entity "wallets" as wallets {
+  *id : UUID
+  --
+  currency : VARCHAR(3)
+  balance : NUMERIC(19,2)
+  account_id : UUID <<FK>>
+}
+
+entity "transactions" as transactions {
+  *id : UUID
+  --
+  wallet_source_id : UUID <<FK, NULLABLE>>
+  wallet_destiny_id : UUID <<FK, NULLABLE>>
+  amount : DECIMAL(19,2)
+  status : VARCHAR(30)
+  type : VARCHAR(30)
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+entity "remittances" as remittances {
+  *id : UUID
+  --
+  transaction_id : UUID <<FK>>
+  converted_currency_amount : DECIMAL(19,2)
+  exchange_rate : DECIMAL(19,8)
+  created_at : DATE
+  updated_at : DATE
+}
+
+persons ||--o{ daily_transaction_limit : "person_id"
+persons ||--|| accounts : "person_id"
+accounts ||--o{ wallets : "account_id"
+wallets ||--o{ transactions : "wallet_source_id"
+wallets ||--o{ transactions : "wallet_destiny_id"
+transactions ||--|| remittances : "transaction_id"
+
+note right of persons
+  Unique:
+  - document_value
+  - email
+end note
+
+note right of daily_transaction_limit
+  Unique:
+  - (person_id, currency)
+end note
+
+@enduml
+
