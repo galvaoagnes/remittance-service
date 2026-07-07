@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+
+metadata:
+  name: daily-tasks
+
+spec:
+  schedule: "0 0 * * *"
+
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+
+          restartPolicy: Never
+
+          containers:
+            - name: scheduler
+              image: remittance-service:latest
+
+              imagePullPolicy: IfNotPresent
+
+              env:
+                - name: SPRING_PROFILES_ACTIVE
+                  value: scheduler

@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: remittance-api
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: remittance-api
+
+  template:
+    metadata:
+      labels:
+        app: remittance-api
+
+    spec:
+      containers:
+        - name: remittance-api
+          image: remittance-service:latest
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 8080
+
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: api
+
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres:5432/remittance
+
+            - name: SPRING_DATASOURCE_USERNAME
+              value: user
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: password
