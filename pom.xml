@@ -207,6 +207,7 @@
 								</rule>
 							</rules>
 							<excludes>
+								<exclude>**/configuration/**</exclude>
 								<exclude>**/responses/**</exclude>
 								<exclude>**/requests/**</exclude>
 								<exclude>**/controller/**</exclude>
