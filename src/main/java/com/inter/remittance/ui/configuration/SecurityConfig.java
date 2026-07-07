@@ -1,6 +1,6 @@
 package com.inter.remittance.ui.configuration;
 
-import com.inter.remittance.application.security.JwtFilter;
+import com.inter.remittance.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

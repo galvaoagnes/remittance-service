@@ -207,7 +207,7 @@ public class CreateRemittanceService {
             throw new BusinessException(ErrorCatalog.INVALID_REMITTANCE_DESTINATION_AMOUNT);
         }
 
-        if (command.sourceAccountId().equals(command.destinationAccountId()) &&
+        if (
                 command.sourceCurrency().equals(command.destinationCurrency())
         ) {
             throw new BusinessException(ErrorCatalog.INVALID_REMITTANCE);

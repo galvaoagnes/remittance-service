@@ -1,4 +1,4 @@
-package com.inter.remittance.application.security;
+package com.inter.remittance.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -23,9 +23,10 @@ public class Jwt {
         this.expiration = expiration;
     }
 
-    public String generateToken(UserDetails user) {
+    public String generateUserToken(UserDetails user) {
         return Jwts.builder()
                 .setSubject(user.getUsername())
+                .claim("roles", Role.USER.name())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))

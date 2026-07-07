@@ -4,6 +4,7 @@ import com.inter.remittance.domain.entities.Person;
 import com.inter.remittance.domain.enums.PersonType;
 import com.inter.remittance.domain.repositories.PersonRepository;
 import com.inter.remittance.domain.valueobjects.Document;
+import com.inter.remittance.security.LoadUserDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

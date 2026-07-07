@@ -1,7 +1,6 @@
 package com.inter.remittance.application.service;
 
 import com.inter.remittance.domain.entities.Account;
-import com.inter.remittance.domain.entities.PageResult;
 import com.inter.remittance.domain.repositories.AccountRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +18,4 @@ public class FindAccountService {
 
        return accountRepository.findWithDetailsById(id);
    }
-
-   public PageResult<Account> findAll(
-           int page,
-           int size
-   ){
-
-       return accountRepository.findAll(
-               page,
-               size
-       );
-   }
-
 }

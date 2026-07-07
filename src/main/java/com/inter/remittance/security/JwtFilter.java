@@ -1,4 +1,4 @@
-package com.inter.remittance.application.security;
+package com.inter.remittance.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

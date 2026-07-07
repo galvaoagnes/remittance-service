@@ -1,4 +1,4 @@
-package com.inter.remittance.application.security;
+package com.inter.remittance.security;
 
 import com.inter.remittance.domain.entities.Person;
 import com.inter.remittance.domain.repositories.PersonRepository;

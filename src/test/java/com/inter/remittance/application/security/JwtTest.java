@@ -1,5 +1,6 @@
 package com.inter.remittance.application.security;
 
+import com.inter.remittance.security.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -23,10 +24,10 @@ class JwtTest {
     }
 
     @Test
-    void shouldGenerateTokenWithExpectedSubject() {
+    void shouldGenerateUserTokenWithExpectedSubject() {
         UserDetails user = User.withUsername("12345678901").password("pwd").roles("PF").build();
 
-        String token = jwt.generateToken(user);
+        String token = jwt.generateUserToken(user);
 
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes()))
@@ -41,7 +42,7 @@ class JwtTest {
     @Test
     void shouldExtractUsernameAndValidateToken() {
         UserDetails user = User.withUsername("12345678901").password("pwd").roles("PF").build();
-        String token = jwt.generateToken(user);
+        String token = jwt.generateUserToken(user);
 
         assertEquals("12345678901", jwt.extractUsername(token));
         assertTrue(jwt.isValid(token, user));

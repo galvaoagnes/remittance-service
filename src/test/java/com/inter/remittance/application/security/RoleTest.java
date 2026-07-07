@@ -1,5 +1,6 @@
 package com.inter.remittance.application.security;
 
+import com.inter.remittance.security.Role;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

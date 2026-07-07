@@ -1,6 +1,6 @@
 package com.inter.remittance.application.service;
 
-import com.inter.remittance.application.security.Jwt;
+import com.inter.remittance.security.Jwt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,7 +46,7 @@ class AuthServiceTest {
 
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(user);
-        when(jwt.generateToken(user)).thenReturn("token-123");
+        when(jwt.generateUserToken(user)).thenReturn("token-123");
 
         String token = service.login("12345678901", "Valid@123");
 
@@ -57,7 +57,7 @@ class AuthServiceTest {
         verify(authenticationManager).authenticate(captor.capture());
         assertEquals("12345678901", captor.getValue().getPrincipal());
         assertEquals("Valid@123", captor.getValue().getCredentials());
-        verify(jwt).generateToken(user);
+        verify(jwt).generateUserToken(user);
     }
 }
 

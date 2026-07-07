@@ -1,7 +1,7 @@
 package com.inter.remittance.ui.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.inter.remittance.application.security.JwtFilter;
+import com.inter.remittance.security.JwtFilter;
 import com.inter.remittance.application.service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

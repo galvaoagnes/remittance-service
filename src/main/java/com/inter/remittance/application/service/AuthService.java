@@ -1,6 +1,6 @@
 package com.inter.remittance.application.service;
 
-import com.inter.remittance.application.security.Jwt;
+import com.inter.remittance.security.Jwt;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +26,6 @@ public class AuthService {
         UserDetails user = (UserDetails) auth.getPrincipal();
 
         assert user != null;
-        return jwt.generateToken(user);
+        return jwt.generateUserToken(user);
     }
 }
