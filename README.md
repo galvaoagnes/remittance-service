@@ -1,7 +1,6 @@
 # Remittance service
 
 The primary function of the remittance service is to execute cross-currency financial remittances and orchestrate the entities involved in the process. It enables the creation of multi-currency accounts and the execution of transfers converted based on exchange rates.
-cd docker && docker compose up -d && cd .. && mvn spring-boot:run
 
 ## Technologies
 
