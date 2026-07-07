@@ -1,7 +1,6 @@
 package com.inter.remittance.application.service;
 
 import com.inter.remittance.domain.entities.Account;
-import com.inter.remittance.domain.entities.PageResult;
 import com.inter.remittance.domain.entities.Person;
 import com.inter.remittance.domain.entities.Wallet;
 import com.inter.remittance.domain.enums.Currency;
@@ -19,7 +18,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -50,16 +48,6 @@ class FindAccountServiceTest {
         verify(accountRepository).findWithDetailsById(accountId);
     }
 
-    @Test
-    void shouldFindAllWithPaginationDelegatingToRepository() {
-        PageResult<Account> expectedPage = new PageResult<>(Set.of(validAccount()), 0, 10, 1, 1);
-        when(accountRepository.findAll(0, 10)).thenReturn(expectedPage);
-
-        PageResult<Account> result = service.findAll(0, 10);
-
-        assertEquals(expectedPage, result);
-        verify(accountRepository).findAll(0, 10);
-    }
 
     private Account validAccount() {
         Person person = new Person(

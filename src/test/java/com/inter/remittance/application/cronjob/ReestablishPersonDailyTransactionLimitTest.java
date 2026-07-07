@@ -1,5 +1,6 @@
 package com.inter.remittance.application.cronjob;
 
+import com.inter.remittance.domain.entities.PageResult;
 import com.inter.remittance.domain.entities.Person;
 import com.inter.remittance.domain.enums.PersonType;
 import com.inter.remittance.domain.repositories.PersonRepository;
@@ -15,6 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -33,11 +35,12 @@ class ReestablishPersonDailyTransactionLimitTest {
 
     @Test
     void shouldIterateOverPeopleWithoutThrowing() {
-        when(personRepository.findAll()).thenReturn(Set.of(validPerson()));
+        PageResult<Person> peoplePage = new PageResult<>(Set.of(validPerson()), 0, 100, 1, 1);
+        when(personRepository.findAll(anyInt(), anyInt())).thenReturn(peoplePage);
 
         assertDoesNotThrow(() -> job.execute());
 
-        verify(personRepository).findAll();
+        verify(personRepository).findAll(0, 100);
     }
 
     private Person validPerson() {
