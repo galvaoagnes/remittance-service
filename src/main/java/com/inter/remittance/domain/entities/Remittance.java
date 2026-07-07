@@ -16,8 +16,6 @@ public record Remittance(
         LocalDateTime updatedAt
 ) {
 
-
-
     public Remittance {
         id = (id == null) ? UUID.randomUUID() : id;
         validateConvertedCurrencyAmount(convertedCurrencyAmount);

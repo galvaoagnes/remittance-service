@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.Set;
 
-import static com.inter.remittance.domain.entities.DailyTransactionLimit.setInitialDailyTransactionLimit;
-
 public record Person(
         UUID id,
         String name,
@@ -71,16 +69,9 @@ public record Person(
         );
     }
 
-
     private void validateDocument(Document document) {
         if (document == null) {
             throw new BusinessException(ErrorCatalog.INVALID_DOCUMENT);
-        }
-    }
-
-    private void validateType(PersonType type) {
-        if (type == null) {
-            throw new BusinessException(ErrorCatalog.INVALID_TYPE);
         }
     }
 

@@ -50,11 +50,10 @@ public class CreateRemittanceService {
         this.dailyTransactionLimitRepository = dailyTransactionLimitRepository;
         this.transactionRepository = transactionRepository;
     }
-
-
     private static final Logger log = LoggerFactory.getLogger(CreateRemittanceService.class);
 
     public Map<Transaction, Remittance> process(CreateRemittanceCommand command) {
+        validateCreateRemittanceCommand(command);
         log.info("Processing remittance transaction from account {} to account {} with non converted amount {}",
                 command.sourceAccountId(),
                 command.destinationAccountId(),
@@ -195,5 +194,23 @@ public class CreateRemittanceService {
         return currency == null
                 ? Currency.USD
                 : currency;
+    }
+
+    private void validateCreateRemittanceCommand(CreateRemittanceCommand command) {
+        if (command.sourceAccountId() == null) {
+            throw new BusinessException(ErrorCatalog.INVALID_REMITTANCE_SOURCE_ACCOUNT_ID);
+        }
+        if (command.destinationAccountId() == null) {
+            throw new BusinessException(ErrorCatalog.INVALID_REMITTANCE_DESTINATION_ACCOUNT_ID);
+        }
+        if (command.amount() == null || command.amount().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new BusinessException(ErrorCatalog.INVALID_REMITTANCE_DESTINATION_AMOUNT);
+        }
+
+        if (command.sourceAccountId().equals(command.destinationAccountId()) &&
+                command.sourceCurrency().equals(command.destinationCurrency())
+        ) {
+            throw new BusinessException(ErrorCatalog.INVALID_REMITTANCE);
+        }
     }
 }
