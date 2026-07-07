@@ -4,7 +4,6 @@ import com.inter.remittance.domain.commom.ErrorCatalog;
 import com.inter.remittance.domain.commom.Exceptions.BusinessException;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
