@@ -595,7 +595,16 @@ kubectl get pods -w
 ```bash
 cd docker && docker compose up -d && cd .. && mvn spring-boot:run 
 ```
+## Run tests
 
+```bash
+mvn test
+```
+with verification
+
+```bash
+mvn test verify
+```
 # Project Architecture
 
 The application is deployed using separated workloads:
