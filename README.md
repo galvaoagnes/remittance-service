@@ -593,7 +593,7 @@ kubectl get pods -w
 ## Running the application
 
 ```bash
-cd docker && docker compose up -d && cd .. && mvn spring-boot:run 
+cd docker && docker compose up -d && cd .. && mvn spring-boot:run -Dspring-boot.run.profiles=api
 ```
 ## Run tests
 
